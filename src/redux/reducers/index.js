@@ -1,21 +1,12 @@
-import { combineReducers } from 'redux'
-import _ from 'lodash'
+/**
+ * 集成所有的reducers
+ */
+import {combineReducers} from 'redux'
 import actions from '../../actions'
-
-const formatReducers = (actions) => {
-    const allReducers = []
-    _.forEach(_.keys(actions), k1 => {
-        const reducers = actions[k1].reducers
-        _.forEach(_.keys(reducers), k2 => {
-            allReducers.push(reducers[k2])
-        })
-    })
-    return allReducers
-}
-
-
-const rootReducer = combineReducers({
-    ...formatReducers(actions)
+import {formatReducers} from '../utils/index'
+import themeColor from './themeColor'
+export default combineReducers({
+    ...formatReducers(actions),
+    themeColor,
 })
 
-export default rootReducer

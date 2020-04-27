@@ -1,5 +1,5 @@
 //Do not modify this file, it will be auto generated
-import vuexDecorator from '@lib/vuexDecorator';
+import reduxDecorator from '@lib/reduxDecorator';
 
 {{#list}}
 import {{this.name}} from './{{this.path}}/{{this.name}}';
@@ -7,6 +7,6 @@ import {{this.name}} from './{{this.path}}/{{this.name}}';
 
 export default {
 {{#list}}
-    {{this.name}}: vuexDecorator('{{this.name}}',{{this.name}}),
+    {{this.name}}: reduxDecorator('{{this.name}}',{{this.name}}),
 {{/list}}
 }

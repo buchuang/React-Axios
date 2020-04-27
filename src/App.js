@@ -1,27 +1,34 @@
 import React from 'react';
-import ParentComponent from './hoc/ParentComponent';
 import './App.scss';
 import {AppController} from "./actions/controller";
-import HOCCommon from './hoc/hocCommon'
+import connect from './hoc/connect'
+import {setThemeColor} from './redux/actions'
 
-
-
-class App extends ParentComponent {
+class App extends React.Component {
     constructor(props) {
         super(props)
+        console.log(this.props)
     }
     async componentDidMount() {
-        let resp = await this.dispatch(AppController.create, {data: 111})
+        this.props.setThemeColor("red")
+        let resp = await this.props.dispatch(AppController.findByCriteria, {data: 111})
         console.log(resp)
     }
     render() {
-        console.log(this.loading(AppController.create))
+        console.log(this.props.loading(AppController.findByCriteria))
         return (
             <div className="App">
-                <div className="content">111111</div>
+                <div className="content">111111{this.props.themeColor.color}</div>
             </div>
         );
     }
 }
 
-export default HOCCommon()(App)
+const mapDispatchToProps = dispatch => {
+    return {
+        setThemeColor: (color) => {
+            dispatch(setThemeColor(color))
+        }
+    }
+}
+export default connect(null, mapDispatchToProps)(App)
